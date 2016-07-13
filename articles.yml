@@ -1,18 +1,11 @@
-- id: papery-quickstart
-  title: Papery快速指南
-  postedOn: !!str 2013-01-02
-  author: Papery
+- id: linux-driver-debugging
+  title: LINUX驱动问题分类以及定位的一般方法
+  postedOn: !!str 2016-07-13
+  author: limatrix
   tags: 
-    - Papery
-    - 指南
-  abstract: 快速了解如何使用Papery。
+    - LINUX
+    - KERNEL
+    - DEBUG
+  abstract: 本文主要介绍自己定位驱动问题的一些经验,对一些问题进行了简单的分类,并介绍了一些定位问题的基本方法,但是,很遗憾没能在定位问题时记录详细的定位过程, 现在只能使用标准的LINUX内核人为的构造一些异常, 分析难免会有错误, 而且会忘掉很多细节. 以后再碰到问题时会及时更新
 
-- id: code-and-math
-  title: 代码与数学公式示例
-  postedOn: !!str 2013-01-01
-  author: Papery
-  tags:
-    - Papery
-    - 代码
-    - 数学公式
-  abstract: 展示了一些代码和数学公式显示效果。
+

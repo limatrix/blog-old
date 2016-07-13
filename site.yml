@@ -1,25 +1,25 @@
-title: Title of blog
-subtitle: Subtitle of blog
-link: Homepage link
+title: ThinkNote
+subtitle: Keep thinking
+link: 
 meta:
-  description: Content of description meta tag
+  description: 记录一些关于内核,驱动,WIFI和WEB的相关知识
   keywords: !!seq
-    - keyword1
-    - keyword2
-    - keyword3
-  author: Content of author meta tag
+    - linux
+    - driver
+    - wifi
+  author: limatrix
 master:
-  name: Your name
-  about: Introduce yourself here
-  email: Your E-mail
+  name: limatrix
+  about: 
+  email: 
 rss:
   title: RSS feed title
   desc: RSS feed description
   lang: zh-cn
   max: 10
 copyright:
-  owner: Copyrighter
-  beginYear: 2011
-  endYear: 2013
+  owner: limatrix
+  beginYear: 2016
+  endYear: 2017
 theme: default
 codetheme: night

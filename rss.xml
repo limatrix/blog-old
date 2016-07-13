@@ -2,297 +2,177 @@
 <rss version="2.0">
     <channel>
         <title>RSS feed title</title>
-        <link>Homepage link</link>
+        <link>null</link>
         <description>RSS feed description</description>
-        <lastBuildDate>Sun, 26 Jun 2016 12:36:24 +0800</lastBuildDate>
+        <lastBuildDate>Wed, 13 Jul 2016 14:00:33 +0800</lastBuildDate>
         <language>zh-cn</language>
         
         <item>
-            <title>Papery快速指南</title>
-            <link>Homepage link/articles/papery-quickstart.html?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss</link>
-            <guid>Homepage link/articles/papery-quickstart.html</guid>
-            <author>Your E-mail Your name</author>
-            <pubDate>Wed, 02 Jan 2013 00:00:00 +0800</pubDate>
-            <description>&lt;p&gt;Papery - create your simple, fast &amp; elegant blog with plain text.&lt;/p&gt;
-&lt;h1 id=&quot;使用说明&quot;&gt;使用说明&lt;/h1&gt;
-&lt;h2 id=&quot;安装及升级&quot;&gt;安装及升级&lt;/h2&gt;
-&lt;p&gt;首先要保证机器上安装有&lt;a href=&quot;http://nodejs.org/&quot;&gt;NodeJS&lt;/a&gt;及&lt;a href=&quot;https://npmjs.org/&quot;&gt;npm&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;NodeJs版本需要&gt;=0.10。&lt;/p&gt;
-&lt;h3 id=&quot;安装&quot;&gt;安装&lt;/h3&gt;
-&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;npm install -g papery
-&lt;/pre&gt;
-&lt;h3 id=&quot;升级&quot;&gt;升级&lt;/h3&gt;
-&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;npm update -g
-&lt;/pre&gt;
-&lt;h2 id=&quot;命令列表&quot;&gt;命令列表&lt;/h2&gt;
-&lt;h3 id=&quot;create&quot;&gt;create&lt;/h3&gt;
-&lt;p&gt;create命令用于创建一个新的博客，使用方法为：&lt;/p&gt;
-&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;papery create &lt;root&gt;
-&lt;/pre&gt;
-&lt;p&gt;执行后则会在root目录创建一个全新的博客，里面包含papery博客的基本目录结构及配置文件等内容。详细信息会在下文详述。&lt;/p&gt;
-&lt;h3 id=&quot;build&quot;&gt;build&lt;/h3&gt;
-&lt;p&gt;通过create创建的博客还不能成为一个真正可以访问的网站，因为里面只包含配置信息和元文本，还没有web页面。build用于根据配置和元文本生成web内容。使用方法为：&lt;/p&gt;
-&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;papery build &lt;root&gt;
-&lt;/pre&gt;
-&lt;h3 id=&quot;server&quot;&gt;server&lt;/h3&gt;
-&lt;p&gt;server可以在本地启动一个调试服务器用于快速预览和调试内容，命令为：&lt;/p&gt;
-&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;papery server &lt;root&gt; [&lt;port&gt;]
-&lt;/pre&gt;
-&lt;p&gt;执行上述命令将在本地port指定的端口启动一个webserver，其中port为可选项，默认值为8001。在浏览器中输入 &lt;a href=&quot;http://localhost&quot;&gt;http://localhost&lt;/a&gt;:&lt;port&gt;/ 即可访问。&lt;/p&gt;
-&lt;h2 id=&quot;目录结构&quot;&gt;目录结构&lt;/h2&gt;
-&lt;p&gt;一个papery博客的目录结构如下&lt;/p&gt;
-&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;root
- | - articles.yml #文章配置
- | - ext.yml      #用户自定义扩展配置
- | - navbar.yml   #导航菜单配置
- | - pages.yml    #独立页面配置
- | - site.yml     #站点主配置
- | - index.html   #首页（自动生成）
- | - rss.xml      #RSS订阅源（自动生成）
- | - tag.html     #标签索引页（自动生成）
- | - articles #放置文章的目录
-      |- post1.md    #post1元文本
-      |- post1.html  #post1文章页面（自动生成）
-      |- post2.md    #post2元文本
-      |- post2.html  #post2文章页面（自动生成）
- | - pages #放置独立页面的目录
-      |- page1.md    #page1元文本
-      |- page1.html  #page1独立页面（自动生成）
- | - assets #资源目录
-      |- vendor  #第三方资源
-      |- themes  #主题
-          |- default #默认主题
- | - templates #模板目录
-&lt;/pre&gt;
-&lt;h2 id=&quot;配置站点&quot;&gt;配置站点&lt;/h2&gt;
-&lt;p&gt;站点的总配置文件是site.yml。papery使用&lt;a href=&quot;http://www.yaml.org/&quot;&gt;yaml&lt;/a&gt;格式作为配置文件格式。
-由于yaml的配置格式非常简洁且具有较高的自解释能力，因此即使你没接触过yaml也可以很快理解配置的意义。&lt;/p&gt;
-&lt;p&gt;通过create创建的默认site.yml内容如下：&lt;/p&gt;
-&lt;pre class=&quot;prettyprint linenums lang-yaml&quot;&gt;title: Title of blog
-subtitle: Subtitle of blog
-link: Homepage link
-meta:
-  description: Content of description meta tag
-  keywords: !!seq
-    - keyword1
-    - keyword2
-    - keyword3
-  author: Content of author meta tag
-master:
-  name: Your name
-  about: Introduce yourself here
-  email: Your E-mail
-rss:
-  title: RSS feed title
-  desc: RSS feed description
-  lang: RSS feed language (ex: zh-cn)
-  max: 10
-copyright:
-  owner: Copyrighter
-  beginYear: 2011
-  endYear: 2013
-theme: default
-codetheme: night
-&lt;/pre&gt;
-&lt;p&gt;其中每个字段的意义已经标示清楚，按照自己的需求修改即可。&lt;/p&gt;
-&lt;h2 id=&quot;写文章&quot;&gt;写文章&lt;/h2&gt;
-&lt;p&gt;papery中的文章有两部分组成：文章配置及元文本。文章配置用于告诉papery的构建系统文章的一些信息，而元文本则是文章的内容。&lt;/p&gt;
-&lt;h3 id=&quot;文章配置&quot;&gt;文章配置&lt;/h3&gt;
-&lt;p&gt;文章配置文件为articles.yml。其中一篇文章的配置格式如下：&lt;/p&gt;
-&lt;pre class=&quot;prettyprint linenums lang-yaml&quot;&gt;- id: post-id
-  title: 文章标题 
-  postedOn: !!str 2013-01-01
-  author: 作者
-  tags: 
-    - 标签1
-    - 标签2
-  abstract: 摘要内容
-&lt;/pre&gt;
-&lt;p&gt;注意其中最重要的配置项是id。id作为文章的唯一标识，要求在整个articles.yml配置的所有文章中唯一，并且只能包含小写英文字母、数字和中横“-”。&lt;/p&gt;
-&lt;p&gt;id不但指定了元文本的名称，而且会成为文章permalink的。建议的id写法是文章的英文标题按单词用“-”连接。例如“papery-quickstart”。&lt;/p&gt;
-&lt;h3 id=&quot;元文本&quot;&gt;元文本&lt;/h3&gt;
-&lt;p&gt;元文本是文章的内容，papery根据元文本和文章配置最终生成文章页面。
-papery使用&lt;a href=&quot;https://help.github.com/articles/github-flavored-markdown&quot;&gt;GitHub Flavored Markdown&lt;/a&gt;(简称gfm)作为元文本书写格式。
-gfm基本保持了标准markdown的功能，同时增加了一些新的特性，文档见&lt;a href=&quot;https://help.github.com/articles/github-flavored-markdown&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;一篇元文本是放在articles目录下以“md”为后缀名的文件，注意元文本的名字对应配置中id字段的名字。例如“id: papery-quickstart”的文章对应的元文本为articles/papery-quickstart.md。&lt;/p&gt;
-&lt;p&gt;你可以用任何文本编辑器书写元文本。如果某些地方markdown的表达能力不够，你可以直接插入html代码。papery元文本支持markdown与html混编。&lt;/p&gt;
-&lt;h2 id=&quot;写独立页面&quot;&gt;写独立页面&lt;/h2&gt;
-&lt;p&gt;博客中有时需要一些如“关于”等独立页面。独立页面的编写与文章非常类似，也是用yaml编写配置文件，用gfm编写元文本。&lt;/p&gt;
-&lt;p&gt;独立页面的配置文件为pages.yml，元文本放在pages/目录下。&lt;/p&gt;
-&lt;p&gt;独立页面的配置项只有id和title，同样通过id关联配置项和元文本。&lt;/p&gt;
-&lt;h2 id=&quot;配置导航菜单&quot;&gt;配置导航菜单&lt;/h2&gt;
-&lt;p&gt;papery默认的导航菜单项只有“首页”和“标签”。如果要增加新的导航菜单项，则需要在navbar.yml中配置。例如我们配置两个导航菜单，一个到博客的RSS订阅源，一个到github首页，则可以如下配置navbar.yml&lt;/p&gt;
-&lt;pre class=&quot;prettyprint linenums lang-yaml&quot;&gt;- label: 订阅
-  href: /rss.xml
-  target: _self
+            <title>LINUX驱动问题分类以及定位的一般方法</title>
+            <link>null/articles/linux-driver-debugging.html?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss</link>
+            <guid>null/articles/linux-driver-debugging.html</guid>
+            <author>null limatrix</author>
+            <pubDate>Wed, 13 Jul 2016 00:00:00 +0800</pubDate>
+            <description>&lt;p&gt;很遗憾没能在定位问题时记录详细的定位过程, 现在只能使用标准的LINUX内核人为的构造一些异常, 分析难免会有错误, 而且会忘掉很多细节. 以后再碰到问题时会及时更新&lt;/p&gt;
+&lt;p&gt;暂且把问题分为三大类 : 异常, 系统问题, 特性问题&lt;/p&gt;
+&lt;!-- toc --&gt;
+&lt;h2 id=&quot;1-异常&quot;&gt;1 异常&lt;/h2&gt;
+&lt;h3 id=&quot;11-arm异常种类&quot;&gt;1.1 ARM异常种类&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;复位异常&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;当CPU刚上电时或按下reset重启键之后进入该异常，该异常在管理模式下处理。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;一般/快速中断请求&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;CPU和外部设备是分别独立的硬件执行单元，CPU对全部设备进行管理和资源调度处理，CPU要想知道外部设备的运行状态，要么CPU定时的去查看外部设备特定寄存器，要么让外部设备在出现需要CPU干涉处理时“打断”CPU，让它来处理外部设备的请求，毫无疑问第二种方式更合理，可以让CPU“专心”去工作，这里的“打断”操作就叫做中断请求，根据请求的紧急情况，中断请求分一般中断和快速中断，快速中断具有最高中断优先级和最小的中断延迟，通常用于处理高速数据传输及通道的中数据恢复处理，如DMA等，绝大部分外设使用一般中断请求。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;预取指令中止异常&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;该异常发生在CPU流水线取指阶段，如果目标指令地址是非法地址进入该异常，该异常在中止异常模式下处理。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;未定义指令异常&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;该异常发生在流水线技术里的译码阶段，如果当前指令不能被识别为有效指令，产生未定义指令异常，该异常在未定义异常模式下处理。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;软件中断指令（swi）异常&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;该异常是应用程序自己调用时产生的，用于用户程序申请访问硬件资源时，例如：printf()打印函数，要将用户数据打印到显示器上，用户程序要想实现打印必须申请使用显示器，而用户程序又没有外设硬件的使用权，只能通过使用软件中断指令切换到内核态，通过操作系统内核代码来访问外设硬件，内核态是工作在特权模式下，操作系统在特权模式下完成将用户数据打印到显示器上。这样做的目的无非是为了保护操作系统的安全和硬件资源的合理使用，该异常在管理模式下处理。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;数据中止访问异常&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;该异常发生在要访问数据地址不存在或者为非法地址时，该异常在中止异常模式下处理&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上内容转自&lt;a href=&quot;http://blog.csdn.net/mr_raptor/article/details/6556195&quot;&gt;http://blog.csdn.net/mr_raptor/article/details/6556195&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;12-空指针异常&quot;&gt;1.2 空指针异常&lt;/h3&gt;
+&lt;p&gt;按理说空指针异常是在新写的代码第一次调试时最容易出的问题. 下面是自己构造的异常: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;内核版本  2.6.32.59&lt;/li&gt;
+&lt;li&gt;文件  net/mac80211/cfg.c&lt;/li&gt;
+&lt;li&gt;函数   ieee80211_add_iface&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;代码&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-c&quot;&gt;static int ieee80211_add_iface(struct wiphy *wiphy, char *name,
+                   enum nl80211_iftype type, u32 *flags,
+                   struct vif_params *params)
+{
+    struct ieee80211_local *local = wiphy_priv(wiphy);
+    struct net_device *dev;
+    struct ieee80211_sub_if_data *sdata;
+    int err;
 
-- label: github
-  href: https://github.com
-  target: _blank
-&lt;/pre&gt;
-&lt;p&gt;注意target配置项可以配置此导航链接是在本窗口打开还是在新窗口打开。&lt;/p&gt;
-&lt;h2 id=&quot;代码高亮&quot;&gt;代码高亮&lt;/h2&gt;
-&lt;p&gt;papery内置代码高亮支持，高亮通过&lt;a href=&quot;https://code.google.com/p/google-code-prettify/&quot;&gt;Google Code Prettify&lt;/a&gt;实现。&lt;/p&gt;
-&lt;p&gt;插入代码时使用gfm格式，用“```[lang]”开头，并用“```”结尾，如：&lt;/p&gt;
-&lt;pre&gt;
-```c
-#include &lt;stdio.h&gt;
+    struct ieee80211_sub_if_data *pstTmp = NULL;
 
-int main(int argc, char** argv) {
-    printf(&quot;%s\n&quot;, &quot;Hello, World!&quot;);
-}
-```
-&lt;/pre&gt;
+    pstTmp-&gt;flags = 0x1234;
 
-&lt;p&gt;即可实现代码高亮。效果：&lt;/p&gt;
-&lt;pre class=&quot;prettyprint linenums lang-c&quot;&gt;#include &lt;stdio.h&gt;
+    if (!nl80211_type_check(type))
+        return -EINVAL;
 
-int main(int argc, char** argv) {
-    printf(&quot;%s\n&quot;, &quot;Hello, World!&quot;);
+    ......
 }
 &lt;/pre&gt;
-&lt;p&gt;papery自带两种代码高亮风格，分别是“night”和“light”。默认为“night”，可以在site.yml的“codetheme”中配置。&lt;/p&gt;
-&lt;h2 id=&quot;数学公式&quot;&gt;数学公式&lt;/h2&gt;
-&lt;p&gt;papery默认启用&lt;a href=&quot;http://www.mathjax.org/&quot;&gt;MathJax&lt;/a&gt;插件，因此直接支持LaTeX格式的数学公式渲染。不过由于反斜杠“\”和下划线“_”在markdown中有特殊意义，因此需要转义。&lt;/p&gt;
-&lt;h3 id=&quot;内联数学公式&quot;&gt;内联数学公式&lt;/h3&gt;
-&lt;p&gt;内联数学公式使用“\$...\$”或“\\(...\\)”包裹，渲染后内联于行内。例如：&lt;/p&gt;
-&lt;pre&gt;
-\\(e^{i\\pi}+1=0\\)
-$e^{i\\pi}+1=0$
+&lt;p&gt;异常打印&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;Unable to handle kernem NULL pointer dereference at virtual address 00000154
+pgd = c12d8000
+[00000154] *pgd=0f8b8031, *pte=00000000, *ppte=00000000
+Internal error: Oops:817 [#1]
+last sysfs file:
+Modules linked in:
+CPU: 0    Not tainted (2.6.32.59 #58)
+PC is at ieee80211_add_iface+0x60/0xcc
+LR is at release_console_sem+0x180/0x190
+pc: [&lt;c196352c&gt;]    lr: [&lt;c154dba8&gt;]   psr:60000013
+sp : cd91dbf8  ip : cd91db18  fp : cd91dc24
+r10: c1b4fc68  r9 : 00000004  r8 : cd91dc34
+r7 : cf9200e0  r6 : cf8c3a20  r5 : cd91dc34  r4 : 00000006
+r3 : 00000000  r2 : 00001234  r1 : 00000007  r0 : 0000001c
+Flags: nZCv   IRQs on   FIQs on   Mode SVC_32   ISA ARM Segment user
+Control: 18c5387d  Table: 012d8019  DAC: 00000015
+Process hostapd (pid: 420, stack limit = 0xcd91c2e8)
+Stack: (0xcd91dbf8 to 0xcd91e000)
+......
+Backtrace:
+[&lt;c19634cc&gt;] (ieee80211_add_iface+0x0/0xcc) form [&lt;c194754c&gt;] (nl80211_new_interface+0x108/0x140)
+......
 &lt;/pre&gt;
-
-&lt;p&gt;效果：$e^{i\pi}+1=0$&lt;/p&gt;
-&lt;p&gt;注意反斜杠需要转义。另外，如果需要将“$”解释为字符本身而非Tex数学公式，可以使用转义字符，如：&lt;/p&gt;
-&lt;pre&gt;
-\$2.50
+&lt;p&gt;Mode SVC_32表示发生在内核空间 Mode UND_32表示发生在用户空间&lt;/p&gt;
+&lt;p&gt;用gdb打开vmlinux(arm-none-linux-gnueabi-gdb vmlinux)时显示 no debugging symbols found
+网上说需要打开 make menuconfig -&gt; kernel hacking -&gt; Kernel debugging -&gt; Compile the kernel with debug info(CONFIG_DEBUG_INFO), 但是我的.config里根本没有CONFIG_DEBUG_INFO&lt;/p&gt;
+&lt;p&gt;接下来试试能不能在编译的时候直接添加-g, 在Makefile文件中看到了&lt;strong&gt;KBUILD_CFLAGS := -Wall -Wundef&lt;/strong&gt;, 加上&lt;strong&gt;-g&lt;/strong&gt; 重新编译, vmlinux变大了很多, 成功&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;arm-none-linux-gnueabi-gdb vmlinux
+(gdb) info line *(ieee80211_add_iface+0x60)
+Line 54 of &quot;net/mac80211/cfg.c&quot; starts at address 0xc1963524 &lt;ieee80211_add_iface+88&gt;
+   and ends at 0xc1963530 &lt;ieee80211_add_iface+100&gt;
+//pstTmp-&gt;flags = 0x1234; 这行的行号就是54
 &lt;/pre&gt;
-
-&lt;h3 id=&quot;单行数学公式&quot;&gt;单行数学公式&lt;/h3&gt;
-&lt;p&gt;单行数学公式使用“\$\$...\$\$”或“\\[...\\]”包裹，渲染后单独占一行，例如：&lt;/p&gt;
-&lt;pre&gt;
-\\[e^{i\\pi}+1=0\\]
-$$e^{i\\pi}+1=0$$
-&lt;/pre&gt;
-
-&lt;p&gt;效果：
-$$e^{i\pi}+1=0$$&lt;/p&gt;
-&lt;h2 id=&quot;toc&quot;&gt;TOC&lt;/h2&gt;
-&lt;p&gt;效果：
-&lt;!-- toc --&gt;&lt;/p&gt;
-&lt;p&gt;在文中任何位置插入&lt;/p&gt;
-&lt;pre class=&quot;prettyprint linenums lang-html&quot;&gt;&lt;!-- toc --&gt;
-&lt;/pre&gt;
-&lt;p&gt;会在当前位置根据文章outline自动生成TOC。&lt;/p&gt;
-&lt;h1 id=&quot;高级使用&quot;&gt;高级使用&lt;/h1&gt;
-&lt;h2 id=&quot;扩展配置及自定义模板&quot;&gt;扩展配置及自定义模板&lt;/h2&gt;
-&lt;h3 id=&quot;自定义模板&quot;&gt;自定义模板&lt;/h3&gt;
-&lt;p&gt;papery使用&lt;a href=&quot;https://github.com/visionmedia/ejs&quot;&gt;ejs&lt;/a&gt;作为模板引擎。模板文件全部放在templates目录下，后缀名为ejs。对于有html基础的用户可以自己对模板进行定制。&lt;/p&gt;
-&lt;h2 id=&quot;扩展配置项绑定&quot;&gt;扩展配置项绑定&lt;/h2&gt;
-&lt;p&gt;除了固定配置项外，papery还提供了一个ext.yml用于用户自定义扩展配置。用户在这个yaml中可以输入自己的配置，然后在模板中通过ext命名空间绑定内容。&lt;/p&gt;
-&lt;p&gt;例如，在ext.yml中输入：&lt;/p&gt;
-&lt;pre class=&quot;prettyprint linenums lang-yaml&quot;&gt;foo: bar
-&lt;/pre&gt;
-&lt;p&gt;则在模板文件中用&lt;/p&gt;
-&lt;pre class=&quot;prettyprint linenums lang-html&quot;&gt;&lt;%= ext.foo %&gt;
-&lt;/pre&gt;
-&lt;p&gt;则此处内容会被替换为“bar”。结合yaml的数据结构及ejs模板引擎，有编程基础的用户可以灵活的按需定制。&lt;/p&gt;
-&lt;h2 id=&quot;自定义主题&quot;&gt;自定义主题&lt;/h2&gt;
-&lt;p&gt;papery的模板中没有表现相关的东西，最终的外观表现依赖于皮肤主题。皮肤主题存放在assets/themes/目录下，子目录名称就是主题名称。当前启用的主题在site.yml的theme配置项中配置。&lt;/p&gt;
-&lt;p&gt;papery默认带一个名叫“default”的主题。&lt;/p&gt;
-&lt;p&gt;自定义主题的主文件是assets/themes/[theme_name]/main.css文件。用户可以通过写不同的main.css文件放在相应目录下，然后修改site.yml来启用不同主题。&lt;/p&gt;
-&lt;p&gt;如需引入额外css、js或图片文件，请使用下文提到的插件模式。&lt;/p&gt;
-&lt;h2 id=&quot;插件&quot;&gt;插件&lt;/h2&gt;
-&lt;p&gt;papery通过在模板文件中引入不同的模板片段启用不同插件。启用插件的方式是将相关代码片段放到相关的注入点模板文件即可。默认有三个注入点：&lt;/p&gt;
-&lt;h3 id=&quot;header_plugin&quot;&gt;header_plugin&lt;/h3&gt;
-&lt;p&gt;header_plugin的模板文件为templates/inc/header_plugin.ejs。这个文件的内容会被包含到网站所有页面的head部分内。可以用于引入一些在页面主内容加载前需要引入的css、js等。如皮肤主题需要的额外css。&lt;/p&gt;
-&lt;h3 id=&quot;footer_plugin&quot;&gt;footer_plugin&lt;/h3&gt;
-&lt;p&gt;footer_plugin的模板文件为templates/inc/footer_plugin.ejs。这个文件的内容会被包含到网站所有页面的body部分结束前。可以用于引入一些在页面主内容加载后需要引入的css、js等。如网站统计代码。&lt;/p&gt;
-&lt;p&gt;papery默认启用的mathjax插件在这里引入。&lt;/p&gt;
-&lt;h3 id=&quot;article_footer_plugin&quot;&gt;article_footer_plugin&lt;/h3&gt;
-&lt;p&gt;article_footer_plugin的模板文件为templates/inc/article_footer_plugin.ejs。这个文件的内容被包含到所有文章页面的底部。可以用于引入评论、分享等于文章相关的插件。&lt;/p&gt;
-&lt;p&gt;如上述位置不满足需求，用户也可以通过自定义模板方式自己定制页面。&lt;/p&gt;
-&lt;h3 id=&quot;常用插件推荐&quot;&gt;常用插件推荐&lt;/h3&gt;
-&lt;h4 id=&quot;评论&quot;&gt;评论&lt;/h4&gt;
+&lt;h3 id=&quot;13-函数指针异常&quot;&gt;1.3 函数指针异常&lt;/h3&gt;
+&lt;p&gt;从问题现象来说, 我觉得函数指针错误引起的异常和数据指针错误引起的异常应该是一样的(还不确定). 如果函数指针所指向的地址可以访问, CPU应该是将这个地址按照指令读取, 读取的不是有效指令的概率非常大, 就会出现以下错误
+&lt;strong&gt;Internal error: Oops - undefined instruction: 0&lt;/strong&gt;
+也可能这个地址根本就不允许访问, 那应该出现以下错误
+&lt;strong&gt;Unable to handle kernem NULL pointer dereference at virtual address 00001234&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;14-狗叫异常&quot;&gt;1.4 狗叫异常&lt;/h3&gt;
+&lt;p&gt;通常CPU发生卡死，我们需要知道卡死位置，分析原因，然后改进，而不希望直接复位。设计的方法是：看门狗超时后先不发复位信号，而是先送出IRQ，看门狗IRQ通常配置成CPU的FIQ，如果CPU只是软件卡死，会响应该FIQ，然后我们在FIQ里收集异常信息和CPU寄存器信息，然后再走正常的panic流程。&lt;/p&gt;
+&lt;p&gt;可能触发看门狗的有&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;多说 - &lt;a href=&quot;http://duoshuo.com&quot;&gt;http://duoshuo.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;友言 - &lt;a href=&quot;http://www.uyan.cc&quot;&gt;http://www.uyan.cc&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;畅言 - &lt;a href=&quot;http://changyan.sohu.com&quot;&gt;http://changyan.sohu.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;死循环&lt;/li&gt;
+&lt;li&gt;死锁&lt;/li&gt;
+&lt;li&gt;大量的中断 (大量中断上报时导致任务没机会运行)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&quot;社会化分享&quot;&gt;社会化分享&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;JiaThis - &lt;a href=&quot;http://www.jiathis.com&quot;&gt;http://www.jiathis.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;bShare - &lt;a href=&quot;http://www.bshare.cn&quot;&gt;http://www.bshare.cn&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;百度分享 - &lt;a href=&quot;http://share.baidu.com&quot;&gt;http://share.baidu.com&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;推荐系统&quot;&gt;推荐系统&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;友荐 - &lt;a href=&quot;http://www.ujian.cc&quot;&gt;http://www.ujian.cc&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;统计&quot;&gt;统计&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Google Analytics - &lt;a href=&quot;http://www.google.com/analytics&quot;&gt;http://www.google.com/analytics&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;百度统计 - &lt;a href=&quot;http://tongji.baidu.com&quot;&gt;http://tongji.baidu.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;量子恒道 - &lt;a href=&quot;http://www.linezing.com&quot;&gt;http://www.linezing.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;腾讯分析 - &lt;a href=&quot;http://ta.qq.com&quot;&gt;http://ta.qq.com&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&quot;开发&quot;&gt;开发&lt;/h1&gt;
-&lt;h2 id=&quot;代码库&quot;&gt;代码库&lt;/h2&gt;
-&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;git clone https://github.com/ericzhang-cn/papery.git
+&lt;p&gt;根据第一段描述, 狗叫后能得到死循环和死锁的位置, 死循环得到的应该是循环结构里的任一条指令的位置, 逃不出循环体. 死锁则能够得到确定的位置. 然而大量中断导致的狗叫异常得到的位置却是随机的,可能每次都不一样,但是大概率的落在这个有问题的中断处理函数中.碰到这种现象,可以首先推断是中断问题, 目前我还没有看到过其他原因&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;Internal error: FIQ Happen [#1]
+Modules linked in: xxx
+CPU: 0    Not tainted (2.6.32.59 #58)
+PC is at function_a+0x1c/0x20
+LR is at function_b+0x1e0/0x738
+pc: [&lt;c196352c&gt;]    lr: [&lt;c154dba8&gt;]   psr:60000013
+sp : cd91dbf8  ip : cd91db18  fp : cd91dc24
+r10: c1b4fc68  r9 : 00000004  r8 : cd91dc34
+r7 : cf9200e0  r6 : cf8c3a20  r5 : cd91dc34  r4 : 00000006
+r3 : 00000000  r2 : 00001234  r1 : 00000007  r0 : 0000001c
+Flags: nZCv   IRQs on   FIQs on   Mode SVC_32   ISA ARM Segment user
+Control: 18c5387d  Table: 012d8019  DAC: 00000015
 &lt;/pre&gt;
-&lt;h2 id=&quot;运行单元测试&quot;&gt;运行单元测试&lt;/h2&gt;
-&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;cd papery
-npm test
-&lt;/pre&gt;
-&lt;h1 id=&quot;license&quot;&gt;License&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;http://opensource.org/licenses/MIT&quot;&gt;The MIT License (MIT)&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Copyright (c) 2013 Eric Zhang&lt;/p&gt;
-&lt;p&gt;Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the &quot;Software&quot;), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:&lt;/p&gt;
-&lt;p&gt;The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.&lt;/p&gt;
-&lt;p&gt;THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.&lt;/p&gt;
-</description>
-        </item>
-        
-        <item>
-            <title>代码与数学公式示例</title>
-            <link>Homepage link/articles/code-and-math.html?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss</link>
-            <guid>Homepage link/articles/code-and-math.html</guid>
-            <author>Your E-mail Your name</author>
-            <pubDate>Tue, 01 Jan 2013 00:00:00 +0800</pubDate>
-            <description>&lt;h1 id=&quot;这是一段代码&quot;&gt;这是一段代码&lt;/h1&gt;
-&lt;pre class=&quot;prettyprint linenums lang-c&quot;&gt;#include &lt;stdio.h&gt;
-
-int main(int argc, char** argv) {
-    printf(&quot;%s\n&quot;, &quot;Hello, World!&quot;);
-}
-&lt;/pre&gt;
-&lt;h1 id=&quot;这是一些数学公式&quot;&gt;这是一些数学公式&lt;/h1&gt;
-&lt;p&gt;\[e^{i\pi}+1=0\]&lt;/p&gt;
-&lt;p&gt;\[\begin{pmatrix}
-  1/\sqrt{2}  &amp; 1/\sqrt{2} \\
-  -1/\sqrt{2} &amp; 1/\sqrt{2}
-\end{pmatrix}
-\begin{pmatrix}
-  3 \\
-  2
-\end{pmatrix}
-=
-\begin{pmatrix}
-  5/\sqrt{2} \\
-  -1/\sqrt{2}
-\end{pmatrix}\]&lt;/p&gt;
-&lt;p&gt;\[Var(a)=\frac{1}{m}\sum_{i=1}^m{(a_i-\mu)^2}\]&lt;/p&gt;
+&lt;h3 id=&quot;15-踩内存&quot;&gt;1.5 踩内存&lt;/h3&gt;
+&lt;p&gt;本来想叫栈溢出和堆溢出, 但是有歧义, 网上很多栈溢出的说法是整个栈空间不够用了, 这里只是写数组越界, 可以叫踩内存, 也可以叫缓冲区溢出吧&lt;/p&gt;
+&lt;p&gt;根据内存的用法不一样, 局部变量在栈内, &lt;strong&gt;kmalloc&lt;/strong&gt;出来的在堆内, 缓冲区溢出就是向数组内拷贝了过多的数据,导致数组之前(栈)之后(堆)的指针或者变量被覆盖, 理想的情况是溢出的不多, 覆盖掉了距离最近的指针, 或者整个栈帧都被覆盖掉了, 一般这种情况会触发一个数据访问异常, 但如果只覆盖了一个变量并随机引起功能问题, 那就难办多了. 更有甚者是在堆内覆盖掉部分字段(全局结构体), 而且离出问题的结构较远, 比如几百字节后的其他结构体, 那就自求多福吧&lt;/p&gt;
+&lt;p&gt;栈溢出相较于堆溢出是容易定位的, 一般情况下不会离数据访问异常的位置太远. 当我们看到数据访问异常会先排查指针本身的问题, 如果指针本身很可靠, 则可以排查一下出问题函数的父函数或者子函数有没有缓冲区(数组), 拷贝数据时有没有边界检查. &lt;/p&gt;
+&lt;p&gt;另外. 数据访问异常时会把当前的栈打印出来, 可以看一下栈里面的数据是否有比较个性的存在, 比如有一次看栈数据时发现栈帧的地址都是以f8b422xx(假设), 然而有一个地址却是01b422xx, 无需去还原各个栈帧的实际情况, 就可以怀疑帧地址被覆盖了.&lt;/p&gt;
+&lt;p&gt;堆溢出则不会太幸运, 即使排除了某个字段/指针本身存在问题, 想要找到溢出的位置也不是很容易, 你需要知道这些全局结构在内存的排列方式, 对于复杂的代码来说, 光分析这一点已经是很艰难了&lt;/p&gt;
+&lt;p&gt;如果想避免这种问题的话, 就得对所有数组操作进行边界检查, 记录异常分支, 使用安全的拷贝函数&lt;/p&gt;
+&lt;h2 id=&quot;2-系统问题&quot;&gt;2 系统问题&lt;/h2&gt;
+&lt;h3 id=&quot;21-内存泄漏&quot;&gt;2.1 内存泄漏&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;menuconfig&lt;/strong&gt;里面的&lt;strong&gt;kernel hacking&lt;/strong&gt;应该可以跟踪内存泄漏问题, 不过我没用过, 暂不讨论.&lt;/p&gt;
+&lt;p&gt;我们是这样做的, 给kmalloc增加了一个参数用来标识是哪个模块申请的内存, 当出现内存泄漏时, 可以直接定位到对应的模块.&lt;/p&gt;
+&lt;h3 id=&quot;22自旋锁引起的死锁&quot;&gt;2.2自旋锁引起的死锁&lt;/h3&gt;
+&lt;p&gt;这个在上面的KDB里已经说过, 看门狗触发FIQ, 获取CPU当前状态, 能够定位到具体的位置, 然后再分析需要保护的数据的运行上下文(任务,中断,软中断), 运行在哪个核上, 在下面会详细说明&lt;/p&gt;
+&lt;h3 id=&quot;23-信号量引起的死锁&quot;&gt;2.3 信号量引起的死锁&lt;/h3&gt;
+&lt;h3 id=&quot;24-分析运行上下文&quot;&gt;2.4 分析运行上下文&lt;/h3&gt;
+&lt;p&gt;在进行资源保护时, 需要明确的知道当前函数的运行上下文, 对于简单的代码分析一下就明确了, 但是对于复杂而又不熟悉的代码, 我一般采用下面的三个函数, 统计某函数的上下文情况, 但是这种方式可能会漏掉一些情况, 我曾经碰到过某函数必须在CPU非常繁忙时才有可能在任务中被调用, 主要是因为我粗心并没有仔细分析此函数的调用情况. 在这种情况下应该先分析代码, 再实际跑跑, 根据跑的结果再分析代码&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;smp_processor_id() 获取当前核ID&lt;/li&gt;
+&lt;li&gt;in_irq() 是否在中断上下文&lt;/li&gt;
+&lt;li&gt;in_softirq() 是否在软中断上下文&lt;/li&gt;
+&lt;li&gt;如果在任务中, 还应该记录任务的名字&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;3-特性问题&quot;&gt;3 特性问题&lt;/h2&gt;
+&lt;p&gt;这个问题能说的并不多, 它并不像上面所提到的那些一般性的问题. 更多的需要对特性的理解和解决问题时的经验&lt;/p&gt;
+&lt;h3 id=&quot;31-多个版本比较&quot;&gt;3.1 多个版本比较&lt;/h3&gt;
+&lt;p&gt;经常出现这种情况, 本来这个功能好好的, 但是版本更新之后就出了问题, 修改或增加新功能引入问题很常见, 验证不到位其实也很常见. 如果出现这种问题, 多比较一下临近的版本就能很容确认是哪里引入的问题&lt;/p&gt;
+&lt;h3 id=&quot;32-多种设备比较&quot;&gt;3.2 多种设备比较&lt;/h3&gt;
+&lt;p&gt;不同设备的硬件不同, 也有时候软件也有差异, 通过这种比较也能够比较快速找到差异所在&lt;/p&gt;
+&lt;h3 id=&quot;33-查看运行时信息&quot;&gt;3.3 查看运行时信息&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;DEBUGGING信息&lt;/strong&gt;
+写代码时需要打印函数参数, 打印错误分支, 打印报文信息等, 用不同的开关控制, 监控运行时代码执行情况, 很多错误在此时都能被定位&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;断言&lt;/strong&gt;
+和上面的DEBUGGING一样, 放在不应该进入的分支&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;统计信息&lt;/strong&gt;
+比如接收/发送中断次数的统计, 队列发送报文数量的统计, 错包的统计等&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;状态信息&lt;/strong&gt;
+比如接收/发送队列当前的状态, 某些环的head和tail, 重要变量的值等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;34-printk&quot;&gt;3.4 printk&lt;/h3&gt;
+&lt;p&gt;我们不可能在代码的所有分支都加上DEBUGGING信息, 而且很多问题仅仅通过上面提到的信息无法定位, 这时只能使用最原始的定位方法, 在所有的怀疑点加打印, 复现问题, 如此反复缩小问题范围, 直到最终定位&lt;/p&gt;
+&lt;h3 id=&quot;35-寻找触发条件&quot;&gt;3.5 寻找触发条件&lt;/h3&gt;
+&lt;p&gt;遇到特别难复现的问题怎么办? 如果还是用printk一层层的定位势必太慢了, 这时我们一般会猜, 构造什么情况能出现这种问题, 一般是对功能有比较深入的了解以后才能用此方法. 如果猜测能解释的通, 那别无选择, 还得复现, 验证猜测是否正确. 有一次狗叫异常, 这时能直接定位到某个while循环, 循环的内容是双向链表, 处理链表的接口都是标准Linux实现的, 并不需要首先就怀疑这些接口, 那就只能怀疑链表本身了. 什么样的链表能够造成死循环呢? 在一个空链表上连续两次插入同一个节点. 那又是什么导致了这个问题? 用户态程序同步出问题时会引发这种现象, 在此就不在详细说明了.    &lt;/p&gt;
+&lt;h3 id=&quot;36-抓包&quot;&gt;3.6 抓包&lt;/h3&gt;
+&lt;p&gt;协议相关的问题, 报文不通的问题, 第一反应应该就是抓包吧&lt;/p&gt;
+&lt;p&gt;定位每一个问题时, 上面的方法基本都会用到, 不断的获取信息, 推理, 验证, 如此反复&lt;/p&gt;
 </description>
         </item>
         
