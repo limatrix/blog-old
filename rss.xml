@@ -4,7 +4,7 @@
         <title>RSS feed title</title>
         <link>null</link>
         <description>RSS feed description</description>
-        <lastBuildDate>Wed, 13 Jul 2016 14:00:33 +0800</lastBuildDate>
+        <lastBuildDate>Sun, 17 Jul 2016 11:19:37 +0800</lastBuildDate>
         <language>zh-cn</language>
         
         <item>
@@ -173,6 +173,38 @@ Control: 18c5387d  Table: 012d8019  DAC: 00000015
 &lt;h3 id=&quot;36-抓包&quot;&gt;3.6 抓包&lt;/h3&gt;
 &lt;p&gt;协议相关的问题, 报文不通的问题, 第一反应应该就是抓包吧&lt;/p&gt;
 &lt;p&gt;定位每一个问题时, 上面的方法基本都会用到, 不断的获取信息, 推理, 验证, 如此反复&lt;/p&gt;
+</description>
+        </item>
+        
+        <item>
+            <title>I2C总线协议学习总结</title>
+            <link>null/articles/study-i2c.html?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss</link>
+            <guid>null/articles/study-i2c.html</guid>
+            <author>null limatrix</author>
+            <pubDate>Wed, 13 Jul 2016 00:00:00 +0800</pubDate>
+            <description>&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
+&lt;p&gt;I2C是一种总线结构, 只有两条线, 一根是SDA(双向的串行数据线), 一根是SCL(时钟线). I2C的协议就是规定如何使用这两条线在两个设备间传输数据. 本文包括I2C协议、ARM中I2C的寄存器以及LINUX下的驱动程序.&lt;/p&gt;
+&lt;p&gt;所有的I2C设备:主设备(master)和从设备(slave)都使用两根线连接. 每个设备都可以作为发送方, 接收方或者两者. 设备作为master时, 产生时钟信号并且初始化总线. 其他设备则作为slave, 负责响应master的命令. 总线上可以连接多个I2C设备, 为了和特定的设备通信, slave会有一个特定的地址. master则不需要.&lt;/p&gt;
+&lt;h2 id=&quot;iic的基本操作&quot;&gt;IIC的基本操作&lt;/h2&gt;
+&lt;h3 id=&quot;术语&quot;&gt;术语&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;发送方(Transmitter): 往总线上发送数据的设备&lt;/li&gt;
+&lt;li&gt;接收方(Receiver): 从总线上接收数据的设备&lt;/li&gt;
+&lt;li&gt;主设备(Master): 产生时钟, 发起/结束通信, 发送I2C命令的设备&lt;/li&gt;
+&lt;li&gt;从设备(Slave): 监听总线, 被master编址的设备&lt;/li&gt;
+&lt;li&gt;多主控(Multi-master): I2C支持多于一个主设备, 每一个都可以发送命令&lt;/li&gt;
+&lt;li&gt;仲裁(Arbitration): 当多个master需要使用总线时, 决定谁来用的过程&lt;/li&gt;
+&lt;li&gt;同步(Synchronization): 有多个设备时同步时钟的过程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;基本操作&quot;&gt;基本操作&lt;/h3&gt;
+&lt;h4 id=&quot;起始和停止信号&quot;&gt;起始和停止信号&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;../images/study-i2c/i2c-start-stop.png&quot; alt=&quot;起始和停止&quot;&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;ARM的IIC描述/寄存器&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;代码操作&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
 </description>
         </item>
         

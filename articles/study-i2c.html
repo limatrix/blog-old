@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="description" content="记录一些关于内核,驱动,WIFI和WEB的相关知识"/>
+        <meta name="keywords" content="linux,driver,wifi"/>
+        <meta name="author" content="limatrix"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <title>ThinkNote - I2C总线协议学习总结
+</title>
+        <link rel="stylesheet" href="/assets/vendor/normalize.css"/>
+        <link rel="stylesheet" href="/assets/vendor/prettify-night.css"/>
+        <link rel="stylesheet" href="/assets/themes/default/main.css"/>
+        <link rel="shortcut icon" href="/fav.ico"/>
+        <script type="text/javascript" src="/assets/vendor/prettify.js"></script>
+        
+    </head>
+    <body onload="prettyPrint()">
+    <div id="header">
+        <div id="header-inner">
+            <div id="title"><a href="/">ThinkNote</a></div>
+            <div id="subtitle">Keep thinking</div>
+        </div>
+    </div>
+
+<div id="main">
+    <div id="main-inner">
+        <div id="topnav">
+            <ul>
+                <li><a href="/">首页</a></li>
+                <li class="sep"> | </li>
+                <li><a href="/tag.html">标签</a></li>
+                
+<li class="sep"> | </li>
+<li><a href="/pages/about-me.html" target="_self">关于我</a></li>
+
+
+            </ul>
+            <div style="clear:both;"></div>
+        </div>
+        <div id="article-title">
+            <a href="/articles/study-i2c.html">I2C总线协议学习总结</a>
+        </div>
+        <div id="article-meta">
+            作者 limatrix | 发布于 2016-07-13
+        </div>
+        <div id="article-tags">
+        
+        <a class="tag" href="/tag.html#LINUX">LINUX</a>
+        
+        <a class="tag" href="/tag.html#KERNEL">KERNEL</a>
+        
+        <a class="tag" href="/tag.html#DEBUG">DEBUG</a>
+        
+        </div>
+        <div id="article-content">
+            <h2 id="简介">简介</h2>
+<p>I2C是一种总线结构, 只有两条线, 一根是SDA(双向的串行数据线), 一根是SCL(时钟线). I2C的协议就是规定如何使用这两条线在两个设备间传输数据. 本文包括I2C协议、ARM中I2C的寄存器以及LINUX下的驱动程序.</p>
+<p>所有的I2C设备:主设备(master)和从设备(slave)都使用两根线连接. 每个设备都可以作为发送方, 接收方或者两者. 设备作为master时, 产生时钟信号并且初始化总线. 其他设备则作为slave, 负责响应master的命令. 总线上可以连接多个I2C设备, 为了和特定的设备通信, slave会有一个特定的地址. master则不需要.</p>
+<h2 id="iic的基本操作">IIC的基本操作</h2>
+<h3 id="术语">术语</h3>
+<ul>
+<li>发送方(Transmitter): 往总线上发送数据的设备</li>
+<li>接收方(Receiver): 从总线上接收数据的设备</li>
+<li>主设备(Master): 产生时钟, 发起/结束通信, 发送I2C命令的设备</li>
+<li>从设备(Slave): 监听总线, 被master编址的设备</li>
+<li>多主控(Multi-master): I2C支持多于一个主设备, 每一个都可以发送命令</li>
+<li>仲裁(Arbitration): 当多个master需要使用总线时, 决定谁来用的过程</li>
+<li>同步(Synchronization): 有多个设备时同步时钟的过程</li>
+</ul>
+<h3 id="基本操作">基本操作</h3>
+<h4 id="起始和停止信号">起始和停止信号</h4>
+<p><img src="../images/study-i2c/i2c-start-stop.png" alt="起始和停止"></p>
+<ol>
+<li><p>ARM的IIC描述/寄存器</p>
+</li>
+<li><p>代码操作</p>
+</li>
+</ol>
+
+        </div>
+        
+    </div>
+</div>
+        <div id="footer">
+            <div id="footer-inner">
+                <p id="copyright">Copyright (c) 2016-2017 limatrix</p>
+            </div>
+        </div>
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+        }
+    });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+    </body>
+</html>
+
