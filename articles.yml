@@ -8,14 +8,15 @@
     - DEBUG
   abstract: 本文主要介绍自己定位驱动问题的一些经验,对一些问题进行了简单的分类,并介绍了一些定位问题的基本方法,但是,很遗憾没能在定位问题时记录详细的定位过程, 现在只能使用标准的LINUX内核人为的构造一些异常, 分析难免会有错误, 而且会忘掉很多细节. 以后再碰到问题时会及时更新
 
-- id: study-i2c
-  title: I2C总线协议学习总结
+- id: how-to-hiding-scrollbar
+  title: 隐藏HTML滚动条
   postedOn: !!str 2016-07-13
   author: limatrix
   tags: 
-    - LINUX
-    - KERNEL
-    - DEBUG
-  abstract: 
+    - HTML
+    - scrollbar
+    - 滚动条
+    - 隐藏
+  abstract: 隐藏滚动条,并且能够正常工作
 
 

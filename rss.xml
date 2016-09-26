@@ -4,7 +4,7 @@
         <title>RSS feed title</title>
         <link>null</link>
         <description>RSS feed description</description>
-        <lastBuildDate>Mon, 18 Jul 2016 15:15:31 +0800</lastBuildDate>
+        <lastBuildDate>Mon, 26 Sep 2016 11:20:05 +0800</lastBuildDate>
         <language>zh-cn</language>
         
         <item>
@@ -177,62 +177,79 @@ Control: 18c5387d  Table: 012d8019  DAC: 00000015
         </item>
         
         <item>
-            <title>I2C总线协议学习总结</title>
-            <link>null/articles/study-i2c.html?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss</link>
-            <guid>null/articles/study-i2c.html</guid>
+            <title>隐藏HTML滚动条</title>
+            <link>null/articles/how-to-hiding-scrollbar.html?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss</link>
+            <guid>null/articles/how-to-hiding-scrollbar.html</guid>
             <author>null limatrix</author>
             <pubDate>Wed, 13 Jul 2016 00:00:00 +0800</pubDate>
-            <description>&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
-&lt;p&gt;I2C是一种总线结构, 只有两条线, 一根是SDA(双向的串行数据线), 一根是SCL(时钟线). I2C的协议就是规定如何使用这两条线在两个设备间传输数据. 本文包括I2C协议、ARM中I2C的寄存器以及LINUX下的驱动程序.&lt;/p&gt;
-&lt;p&gt;所有的I2C设备:主设备(master)和从设备(slave)都使用两根线连接. 每个设备都可以作为发送方, 接收方或者两者. 设备作为master时, 产生时钟信号并且初始化总线. 其他设备则作为slave, 负责响应master的命令. 总线上可以连接多个I2C设备, 为了和特定的设备通信, slave会有一个特定的地址. 地址分为固定部分和可编程部分, 细节视芯片而定. 广播地址为全0. master则不需要地址. SDA传输数据采用大端传输, 每次传输8bit. &lt;/p&gt;
-&lt;h2 id=&quot;iic的基本操作&quot;&gt;IIC的基本操作&lt;/h2&gt;
-&lt;h3 id=&quot;术语&quot;&gt;术语&lt;/h3&gt;
+            <description>&lt;h2 id=&quot;1-如何显示滚动条&quot;&gt;1 如何显示滚动条&lt;/h2&gt;
+&lt;p&gt;  需要给容器设置overflow属性. 如果不设置overflow属性, 就不会显示滚动条, 超出的内容会被显示, 容器的实际高度不变, 如果此容器下面还有内容, 则会与超出的部分重叠显示&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-html&quot;&gt;   &lt;div style=&quot;width:400px; height:400px; overflow:auto&quot;&gt;&lt;/div&gt;
+&lt;/pre&gt;
+&lt;h2 id=&quot;2-overflow的属性值&quot;&gt;2 overflow的属性值&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;发送方(Transmitter): 往总线上发送数据的设备&lt;/li&gt;
-&lt;li&gt;接收方(Receiver): 从总线上接收数据的设备&lt;/li&gt;
-&lt;li&gt;主设备(Master): 产生时钟, 发起/结束通信, 发送I2C命令的设备&lt;/li&gt;
-&lt;li&gt;从设备(Slave): 监听总线, 被master编址的设备&lt;/li&gt;
-&lt;li&gt;多主控(Multi-master): I2C支持多于一个主设备, 每一个都可以发送命令&lt;/li&gt;
-&lt;li&gt;仲裁(Arbitration): 当多个master需要使用总线时, 决定谁来用的过程&lt;/li&gt;
-&lt;li&gt;同步(Synchronization): 有多个设备时同步时钟的过程&lt;/li&gt;
+&lt;li&gt;visible: 默认值, 内容不会被修剪, 会呈现在元素框之外, 和上面说的没有overflow属性是一样的&lt;/li&gt;
+&lt;li&gt;hidden : 内容会被修剪, 但多余内容不可见, 没有滚动条&lt;/li&gt;
+&lt;li&gt;scroll : 横竖滚动条默认都会显示. 如果内容没有超出, 只显示滚动条的底, 如果超出再显示滚动条&lt;/li&gt;
+&lt;li&gt;auto   : 内容超出后才会显示滚动条&lt;/li&gt;
+&lt;li&gt;inherit: 从父元素继承overflow属性的值&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&quot;基本操作&quot;&gt;基本操作&lt;/h3&gt;
-&lt;h4 id=&quot;串行数据传输&quot;&gt;串行数据传输&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;../images/study-i2c/serial-data-transfer.png&quot; alt=&quot;串行数据传输&quot;&gt;&lt;/p&gt;
-&lt;p&gt;一个时钟周期传输一比特; 当SCL为低电平时, SDA才能改变传输的比特; SCL为高电平时, SDA保持稳定, 视为有效数据.&lt;/p&gt;
-&lt;h4 id=&quot;开始和结束信号&quot;&gt;开始和结束信号&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;../images/study-i2c/start-stop.png&quot; alt=&quot;开始和结束信号&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;3-如何隐藏滚动条并且功能正常&quot;&gt;3 如何隐藏滚动条并且功能正常&lt;/h2&gt;
+&lt;h3 id=&quot;31-将overflow设置为auto-将滚动条设置为透明或者页面颜色&quot;&gt;3.1 将overflow设置为auto, 将滚动条设置为透明或者页面颜色&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;开始信号&lt;/strong&gt;: SCL为高电平时, SDA由高电平向低电平跳变, 开始传送数据.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;结束信号&lt;/strong&gt;: SCL为高电平时, SDA由低电平向高电平跳变, 结束传送数据.&lt;/li&gt;
+&lt;li&gt;在网上搜索 &lt;strong&gt;滚动条颜色设置&lt;/strong&gt; , 搜出来的结果都是这个 &lt;strong&gt;scrollbar-face-color: #FFFFFF&lt;/strong&gt;, 经测试只对IE有效&lt;/li&gt;
+&lt;li&gt;然后再搜 &lt;strong&gt;滚动条 webkit&lt;/strong&gt;, 搜出来 &lt;strong&gt;-webkit-scrollbar-thumb&lt;/strong&gt; 这一类样式, 只对chrome有效&lt;/li&gt;
+&lt;li&gt;再搜 &lt;strong&gt;滚动条 firefox css&lt;/strong&gt; 和 &lt;strong&gt;滚动条 moz css&lt;/strong&gt;均没搜到有用的结果&lt;/li&gt;
+&lt;li&gt;搜索 &lt;strong&gt;scrollbar moz css&lt;/strong&gt;, 搜到了这篇博客 &lt;strong&gt;&lt;a href=&quot;http://codemug.com/html/custom-scrollbars-using-css/&quot;&gt;http://codemug.com/html/custom-scrollbars-using-css/&lt;/a&gt;&lt;/strong&gt;. 和我之前搜到的内容一样, 但比较详细. IE和chrome有自己的设置, firefox不支持&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&quot;i2c数据传输&quot;&gt;I2C数据传输&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;../images/study-i2c/i2c-data-transfer.png&quot; alt=&quot;I2C数据传输&quot;&gt;&lt;/p&gt;
-&lt;p&gt;I2C总线每次传输8比特(一字节)数据, 没有限制传输多少个字节, 但每字节后面都需要跟一个ACK(acknowledge bit). 这个确认位用来指示设备是否准备好处理下一个字节. 如果slave没有ACK则意味着没有数据了或者它还没有准备好传输. 则master必须产生结束信号(stop)或重开始信号(repeated start).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;../images/study-i2c/ack-unack.png&quot; alt=&quot;ACK-UNACK&quot;&gt;&lt;/p&gt;
-&lt;h4 id=&quot;同步&quot;&gt;同步&lt;/h4&gt;
-&lt;h4 id=&quot;仲裁&quot;&gt;仲裁&lt;/h4&gt;
-&lt;h4 id=&quot;使用7比特地址通信&quot;&gt;使用7比特地址通信&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;../images/study-i2c/7bit-addr-1.png&quot; alt=&quot;使用7比特地址通信&quot;&gt;&lt;/p&gt;
-&lt;p&gt;总线上的每个slave设备都需要一个唯一的7比特地址. 通信时首先发送一个开始信号, 然后是7比特slave地址和1比特数据方向(0代表写数据到slave, 1代表从slave读数据). 然后mater就可以写或者读数据了. 结束信号用于结束通信和释放总线. 如果master还想和其他slave通信, 则不需要产生结束信号, 直接发送repeated start信号即可. 字节以大端传输(MSB).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;../images/study-i2c/7bit-addr-2.png&quot; alt=&quot;使用7比特地址通信&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;../images/study-i2c/7bit-addr-3.png&quot; alt=&quot;使用7比特地址通信&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;../images/study-i2c/7bit-addr-4.png&quot; alt=&quot;使用7比特地址通信&quot;&gt;&lt;/p&gt;
-&lt;p&gt;有时候master要先向slave写点数据然后再读点数据. 在这种情况下写完后要修改数据传输方向. 需要发送repeated start信号并再次发送slave地址和R/W比特. 如果不需要修改方向, 则可以一直写或者读数据.&lt;/p&gt;
-&lt;h4 id=&quot;编址&quot;&gt;编址&lt;/h4&gt;
-&lt;p&gt;I2C地址由I2C总线委员会管理, 有8个保留地址, 其中一个用于10比特地址. 其中全0是广播地址, 如果某slave不需要响应或不支持广播则需忽略此请求. 如果需要接收信息则得回应一个ACK.
-&lt;img src=&quot;../images/study-i2c/7bit-addressing-2.png&quot; alt=&quot;7比特编址&quot;&gt;&lt;/p&gt;
-&lt;h5 id=&quot;start-byte&quot;&gt;Start Byte&lt;/h5&gt;
-&lt;p&gt;If microcontroller has I2C hardware and the microcontroller acts as a slave then the software needs to do nothing to check the bus state. The I2C hardware will detect Start condition, receive the I2C address and interrupt the software if necessary. However, if the I2C interface is implemented by the software, the microcontroller has to sample SDA line at least twice per clock pulse in order to detect changes. To simplify detection of I2C commands on the bus in such cases, a special I2C address called Start byte is used. Such start byte (0000 0001) is followed by an acknowledge pulse (for interface compatibility reasons). This combination holds the SDA line low for 7 clock pulses and allows simple detection of active I2C bus with lower sampling frequency.&lt;/p&gt;
-&lt;p&gt;如果I2C控制器作为slave, 则软件不需要检查总线状态. 硬件会检查开始信号、接收I2C地址、触发中断. 如果I2C接口由软件实现, 在一个时钟周期内需要采样SDA两次,才能检查到改变. &lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;../images/study-i2c/7bit-addressing-3.png&quot; alt=&quot;7比特编址&quot;&gt;&lt;/p&gt;
-&lt;h4 id=&quot;扩展&quot;&gt;扩展&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;ARM的IIC描述/寄存器&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;结论:无法采用这种方式&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;32-将滚动条覆盖&quot;&gt;3.2 将滚动条覆盖&lt;/h3&gt;
+&lt;p&gt;使用两个DIV, 外侧DIV比内侧DIV窄一点, 将内侧的滚动条覆盖住&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-html&quot;&gt;&lt;div style=&quot;width:380px; height:400px; overflow:hidden&quot;&gt;
+    &lt;div style=&quot;width:400px; height:400px; padding-right:20px; overflow:auto;&quot;&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;这种方法简单, 没觉得有什么不好, 可以考虑使用&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;33-使用插件&quot;&gt;3.3 使用插件&lt;/h3&gt;
+&lt;p&gt;我选择的是perfect-scrollbar, 比较轻量级, 但不能初始化时设置不显示滚动条(有的插件是可以的). &lt;a href=&quot;https://github.com/noraesae/perfect-scrollbar&quot;&gt;https://github.com/noraesae/perfect-scrollbar&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;331-使用方法&quot;&gt;3.3.1 使用方法&lt;/h4&gt;
+&lt;pre class=&quot;prettyprint linenums lang-html&quot;&gt;&lt;script src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;link href=&quot;perfect-scrollbar.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script src=&quot;perfect-scrollbar.jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;/pre&gt;
+&lt;pre class=&quot;prettyprint linenums lang-html&quot;&gt;&lt;div style=&quot;width:400px; height:400px; overflow:hidden; position:relative;&quot; id=&quot;container&quot;&gt;
+&lt;/div&gt;
+&lt;/pre&gt;
+&lt;pre class=&quot;prettyprint linenums lang-javascript&quot;&gt;$(document).ready(function(){
+    $(&#39;#container&#39;).perfectScrollbar();
+});
+&lt;/pre&gt;
+&lt;p&gt;如果内容高于此DIV, 鼠标经过右边框时会显示滚动条&lt;/p&gt;
+&lt;h4 id=&quot;332-如何隐藏滚动条&quot;&gt;3.3.2 如何隐藏滚动条&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;把perfect-scrollbar.min.css引用删掉
+确实不显示滚动条, 而且内容可以滚动, 但又滚动的太多了, 内容可以滚出当前DIV&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;代码操作&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;没有参数可供初始化时隐藏掉滚动条&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ol&gt;
+&lt;li&gt;&lt;p&gt;定义自己的样式
+文档里说可以定义自己的样式, 但用到了sass, 不了解这个, 目前也不想深究&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;覆盖掉滚动条的样式, 经验证, 把滚动条的底和滚动条本身的宽度都设置为0比较简单&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-css&quot;&gt;  .ps-container&gt;.ps-scrollbar-y-rail {
+      width:0px;
+  }
+  .ps-container&gt;.ps-scrollbar-y-rail&gt;.ps-scrollbar-y {
+      width:0px;
+  }
+  .ps-container&gt;.ps-scrollbar-y-rail:hover&gt;.ps-scrollbar-y, .ps-container&gt;.ps-scrollbar-y-rail:active&gt;.ps-scrollbar-y{
+      width:0px;
+  }
+&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;本节内容完全的实用主义, 对各知识点都没有深究, 各位看看即可&lt;/strong&gt;&lt;/p&gt;
 </description>
         </item>
         

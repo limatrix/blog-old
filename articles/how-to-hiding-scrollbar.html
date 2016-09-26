@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="description" content="记录一些关于内核,驱动,WIFI和WEB的相关知识"/>
+        <meta name="keywords" content="linux,driver,wifi"/>
+        <meta name="author" content="limatrix"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <title>ThinkNote - 隐藏HTML滚动条
+</title>
+        <link rel="stylesheet" href="/assets/vendor/normalize.css"/>
+        <link rel="stylesheet" href="/assets/vendor/prettify-night.css"/>
+        <link rel="stylesheet" href="/assets/themes/default/main.css"/>
+        <link rel="shortcut icon" href="/fav.ico"/>
+        <script type="text/javascript" src="/assets/vendor/prettify.js"></script>
+        
+    </head>
+    <body onload="prettyPrint()">
+    <div id="header">
+        <div id="header-inner">
+            <div id="title"><a href="/">ThinkNote</a></div>
+            <div id="subtitle">Keep thinking</div>
+        </div>
+    </div>
+
+<div id="main">
+    <div id="main-inner">
+        <div id="topnav">
+            <ul>
+                <li><a href="/">首页</a></li>
+                <li class="sep"> | </li>
+                <li><a href="/tag.html">标签</a></li>
+                
+<li class="sep"> | </li>
+<li><a href="/pages/about-me.html" target="_self">关于我</a></li>
+
+
+            </ul>
+            <div style="clear:both;"></div>
+        </div>
+        <div id="article-title">
+            <a href="/articles/how-to-hiding-scrollbar.html">隐藏HTML滚动条</a>
+        </div>
+        <div id="article-meta">
+            作者 limatrix | 发布于 2016-07-13
+        </div>
+        <div id="article-tags">
+        
+        <a class="tag" href="/tag.html#HTML">HTML</a>
+        
+        <a class="tag" href="/tag.html#scrollbar">scrollbar</a>
+        
+        <a class="tag" href="/tag.html#滚动条">滚动条</a>
+        
+        <a class="tag" href="/tag.html#隐藏">隐藏</a>
+        
+        </div>
+        <div id="article-content">
+            <h2 id="1-如何显示滚动条">1 如何显示滚动条</h2>
+<p>  需要给容器设置overflow属性. 如果不设置overflow属性, 就不会显示滚动条, 超出的内容会被显示, 容器的实际高度不变, 如果此容器下面还有内容, 则会与超出的部分重叠显示</p>
+<pre class="prettyprint linenums lang-html">   &lt;div style=&quot;width:400px; height:400px; overflow:auto&quot;&gt;&lt;/div&gt;
+</pre>
+<h2 id="2-overflow的属性值">2 overflow的属性值</h2>
+<ul>
+<li>visible: 默认值, 内容不会被修剪, 会呈现在元素框之外, 和上面说的没有overflow属性是一样的</li>
+<li>hidden : 内容会被修剪, 但多余内容不可见, 没有滚动条</li>
+<li>scroll : 横竖滚动条默认都会显示. 如果内容没有超出, 只显示滚动条的底, 如果超出再显示滚动条</li>
+<li>auto   : 内容超出后才会显示滚动条</li>
+<li>inherit: 从父元素继承overflow属性的值</li>
+</ul>
+<h2 id="3-如何隐藏滚动条并且功能正常">3 如何隐藏滚动条并且功能正常</h2>
+<h3 id="31-将overflow设置为auto-将滚动条设置为透明或者页面颜色">3.1 将overflow设置为auto, 将滚动条设置为透明或者页面颜色</h3>
+<ul>
+<li>在网上搜索 <strong>滚动条颜色设置</strong> , 搜出来的结果都是这个 <strong>scrollbar-face-color: #FFFFFF</strong>, 经测试只对IE有效</li>
+<li>然后再搜 <strong>滚动条 webkit</strong>, 搜出来 <strong>-webkit-scrollbar-thumb</strong> 这一类样式, 只对chrome有效</li>
+<li>再搜 <strong>滚动条 firefox css</strong> 和 <strong>滚动条 moz css</strong>均没搜到有用的结果</li>
+<li>搜索 <strong>scrollbar moz css</strong>, 搜到了这篇博客 <strong><a href="http://codemug.com/html/custom-scrollbars-using-css/">http://codemug.com/html/custom-scrollbars-using-css/</a></strong>. 和我之前搜到的内容一样, 但比较详细. IE和chrome有自己的设置, firefox不支持</li>
+</ul>
+<p><strong>结论:无法采用这种方式</strong></p>
+<h3 id="32-将滚动条覆盖">3.2 将滚动条覆盖</h3>
+<p>使用两个DIV, 外侧DIV比内侧DIV窄一点, 将内侧的滚动条覆盖住</p>
+<pre class="prettyprint linenums lang-html">&lt;div style=&quot;width:380px; height:400px; overflow:hidden&quot;&gt;
+    &lt;div style=&quot;width:400px; height:400px; padding-right:20px; overflow:auto;&quot;&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<p><strong>这种方法简单, 没觉得有什么不好, 可以考虑使用</strong></p>
+<h3 id="33-使用插件">3.3 使用插件</h3>
+<p>我选择的是perfect-scrollbar, 比较轻量级, 但不能初始化时设置不显示滚动条(有的插件是可以的). <a href="https://github.com/noraesae/perfect-scrollbar">https://github.com/noraesae/perfect-scrollbar</a></p>
+<h4 id="331-使用方法">3.3.1 使用方法</h4>
+<pre class="prettyprint linenums lang-html">&lt;script src=&quot;jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;link href=&quot;perfect-scrollbar.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script src=&quot;perfect-scrollbar.jquery.min.js&quot;&gt;&lt;/script&gt;
+</pre>
+<pre class="prettyprint linenums lang-html">&lt;div style=&quot;width:400px; height:400px; overflow:hidden; position:relative;&quot; id=&quot;container&quot;&gt;
+&lt;/div&gt;
+</pre>
+<pre class="prettyprint linenums lang-javascript">$(document).ready(function(){
+    $(&#39;#container&#39;).perfectScrollbar();
+});
+</pre>
+<p>如果内容高于此DIV, 鼠标经过右边框时会显示滚动条</p>
+<h4 id="332-如何隐藏滚动条">3.3.2 如何隐藏滚动条</h4>
+<ul>
+<li><p>把perfect-scrollbar.min.css引用删掉
+确实不显示滚动条, 而且内容可以滚动, 但又滚动的太多了, 内容可以滚出当前DIV</p>
+</li>
+<li><p>没有参数可供初始化时隐藏掉滚动条</p>
+</li>
+<li><p>定义自己的样式
+文档里说可以定义自己的样式, 但用到了sass, 不了解这个, 目前也不想深究</p>
+</li>
+<li><p>覆盖掉滚动条的样式, 经验证, 把滚动条的底和滚动条本身的宽度都设置为0比较简单</p>
+<pre class="prettyprint linenums lang-css">  .ps-container&gt;.ps-scrollbar-y-rail {
+      width:0px;
+  }
+  .ps-container&gt;.ps-scrollbar-y-rail&gt;.ps-scrollbar-y {
+      width:0px;
+  }
+  .ps-container&gt;.ps-scrollbar-y-rail:hover&gt;.ps-scrollbar-y, .ps-container&gt;.ps-scrollbar-y-rail:active&gt;.ps-scrollbar-y{
+      width:0px;
+  }
+</pre>
+</li>
+</ul>
+<p><strong>本节内容完全的实用主义, 对各知识点都没有深究, 各位看看即可</strong></p>
+
+        </div>
+        
+    </div>
+</div>
+        <div id="footer">
+            <div id="footer-inner">
+                <p id="copyright">Copyright (c) 2016-2017 limatrix</p>
+            </div>
+        </div>
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+        }
+    });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+    </body>
+</html>
+
