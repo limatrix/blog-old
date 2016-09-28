@@ -4,7 +4,7 @@
         <title>RSS feed title</title>
         <link>null</link>
         <description>RSS feed description</description>
-        <lastBuildDate>Mon, 26 Sep 2016 11:20:05 +0800</lastBuildDate>
+        <lastBuildDate>Wed, 28 Sep 2016 14:13:10 +0800</lastBuildDate>
         <language>zh-cn</language>
         
         <item>
@@ -202,7 +202,7 @@ Control: 18c5387d  Table: 012d8019  DAC: 00000015
 &lt;li&gt;再搜 &lt;strong&gt;滚动条 firefox css&lt;/strong&gt; 和 &lt;strong&gt;滚动条 moz css&lt;/strong&gt;均没搜到有用的结果&lt;/li&gt;
 &lt;li&gt;搜索 &lt;strong&gt;scrollbar moz css&lt;/strong&gt;, 搜到了这篇博客 &lt;strong&gt;&lt;a href=&quot;http://codemug.com/html/custom-scrollbars-using-css/&quot;&gt;http://codemug.com/html/custom-scrollbars-using-css/&lt;/a&gt;&lt;/strong&gt;. 和我之前搜到的内容一样, 但比较详细. IE和chrome有自己的设置, firefox不支持&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;结论:无法采用这种方式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;无法采用这种方式&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&quot;32-将滚动条覆盖&quot;&gt;3.2 将滚动条覆盖&lt;/h3&gt;
 &lt;p&gt;使用两个DIV, 外侧DIV比内侧DIV窄一点, 将内侧的滚动条覆盖住&lt;/p&gt;
 &lt;pre class=&quot;prettyprint linenums lang-html&quot;&gt;&lt;div style=&quot;width:380px; height:400px; overflow:hidden&quot;&gt;
@@ -250,6 +250,127 @@ Control: 18c5387d  Table: 012d8019  DAC: 00000015
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;本节内容完全的实用主义, 对各知识点都没有深究, 各位看看即可&lt;/strong&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+        <item>
+            <title>SSH TUNNEL 正向连接 反向连接 SOCKS代理的简单理解</title>
+            <link>null/articles/ssh-tunnel.html?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss</link>
+            <guid>null/articles/ssh-tunnel.html</guid>
+            <author>null limatrix</author>
+            <pubDate>Wed, 13 Jul 2016 00:00:00 +0800</pubDate>
+            <description>&lt;h2 id=&quot;1-基本概念&quot;&gt;1 基本概念&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;本地转发/正向连接&lt;/li&gt;
+&lt;li&gt;远程转发/反向连接&lt;/li&gt;
+&lt;li&gt;动态转发/SOCKS代理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;2-区分标准是什么&quot;&gt;2 区分标准是什么&lt;/h2&gt;
+&lt;p&gt;SSH的连接是有方向的, 从SSH CLIENT到SSH SERVER. 访问应用的连接也是有方向的, 从应用的CLIENT到应用的SERVER.如果SSH连接和应用连接的方向是一致的, 就叫做正向连接或本地转发. 方向相反则叫做反向连接或远程转发. &lt;/p&gt;
+&lt;p&gt;上面的这种说法一开始让人不明白, 下面说一个更乱的:&lt;/p&gt;
+&lt;p&gt;正向连接是SSH CLIENT连上SSH SERVER, 然后把SERVER能访问的机器的IP和端口映射到CLIENT上, 其中&quot;能访问的机器&quot;可以是SERVER本身&lt;/p&gt;
+&lt;p&gt;反向连接是SSH CLIENT连上SSH SERVER, 然后把CLIENT能访问的机器的IP和端口映射到SERVER上, 其中&quot;能访问的机器&quot;可以是CLIENT本身&lt;/p&gt;
+&lt;p&gt;不明白也没问题, 先看下面的实例, 然后再回来.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;写完下面的内容再回来有了新的发现&lt;/em&gt;
+&lt;em&gt;数据流方向与SSH连接方向一致为正向连接, 相反为反向连接&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;3-能做什么&quot;&gt;3 能做什么&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;正向连接&lt;/strong&gt; A能访问B, B能访问C, 但是A不能访问C, 此时A可以通过B作为跳板访问C&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;反向连接&lt;/strong&gt; 主要用来访问内网服务, 即穿NAT&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SOCKS代理&lt;/strong&gt; 通过代理服务器访问网络&lt;/p&gt;
+&lt;h2 id=&quot;4-怎么做&quot;&gt;4 怎么做&lt;/h2&gt;
+&lt;h3 id=&quot;41-正向连接&quot;&gt;4.1 正向连接&lt;/h3&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;ssh -L [客户端IP或省略]:[客户端端口]:[服务器侧能访问的IP]:[服务器侧能访问的端口] [登陆服务器的用户名@服务器IP] -p [服务器ssh服务端口（默认22）]
+&lt;/pre&gt;
+&lt;p&gt;下面的例子是通过公网服务器去访问其他的服务器, 这里ssh server为阿里云的VPS&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ssh client: 172.27.18.59 &lt;br /&gt;
+  ssh server: 121.42.186.117 &lt;br /&gt;
+  app client: 172.27.18.39 &lt;br /&gt;
+  app server: pop.163.com &lt;br /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;ssh -L 172.27.18.59:8080:pop.163.com:110 root@121.42.186.117
+&lt;/pre&gt;
+&lt;p&gt;本条命令是在ssh client上执行, 数据方向是app client到ssh client再到ssh server, 与ssh连接方向一致&lt;/p&gt;
+&lt;p&gt;在app client上访问172.27.18.59 8080&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;C:\&gt;nc 172.27.18.59 8080
++OK Welcome to coremail Mail Pop3 Server (163coms[726cd87d72d896a1ac393507346040fas])
+USER xxxxx
++OK core mail
+PASS xxxxx
+-ERR 您没有权限使用pop3功能
+&lt;/pre&gt;
+&lt;p&gt;连接建立后, ssh client监听8080端口, 并与ssh server 22建立了连接. ssh server上显示的IP为221.12.31.29, 应该是我的出口IP&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;ssh client
+tcp        0      0 172.27.18.59:8080       0.0.0.0:*               LISTEN
+tcp        0      0 172.27.18.59:51315      121.42.186.117:22       ESTABLISHED
+
+ssh server
+tcp        0    324 121.42.186.117:22       221.12.31.29:29146      ESTABLISHED
+&lt;/pre&gt;
+&lt;p&gt;访问172.27.18.59 8080后&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;ssh client
+tcp        0      0 172.27.18.59:8080       172.27.18.39:49219      ESTABLISHED
+
+ssh server
+tcp        0      0 121.42.186.117:28319    220.181.12.101:110      ESTABLISHED
+&lt;/pre&gt;
+&lt;p&gt;从上面的连接信息可以看出, 在app client上访问ssh client的8080端口, ssh server就会去访问app server. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这里有个疑问&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;网上举的例子app server都是http服务器, 我实验的时候是不成功的, 配置如下&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;ssh -L 172.27.18.59:8080:www.baidu.com:80 root@121.42.186.117
+&lt;/pre&gt;
+&lt;p&gt;在app client和ssh client上分别用浏览器和wget访问172.27.18.59:8080都不成功, &lt;code&gt;wget 172.27.18.59:8080 --debug&lt;/code&gt;看到能建立连接, 但是木有数据回来. 但是用nc就可以 (HTTP协议是通过wget的--debug参数获取的)&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;C:\nc 172.27.18.59 8080
+GET / HTTP/1.1
+User-Agent: Wget/1.15 (linux-gnu)
+Accept: */*
+Host: www.baidu.com
+Connection: Keep-Alive
+
+HTTP/1.1 200 OK
+Server: bfe/1.0.8.18
+Date: Tue, 27 Sep 2016 08:13:11 GMT
+略 ......
+&lt;/pre&gt;
+&lt;p&gt;另外, 上面所说的&#39;其中&quot;能访问的机器&quot;可以是SERVER本身&#39;&#39;, 下面的命令就是通过ssh client的8080端口就能登录进ssh server&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;ssh -L 172.27.18.59:8080:121.42.186.117:22 root@121.42.186.117
+&lt;/pre&gt;
+&lt;h3 id=&quot;42-反向连接&quot;&gt;4.2 反向连接&lt;/h3&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;ssh -R [服务器IP或省略]:[服务器端口]:[客户端侧能访问的IP]:[客户端侧能访问的IP的端口] [登陆服务器的用户名@服务器IP] -p [服务器ssh服务端口（默认22）]
+&lt;/pre&gt;
+&lt;p&gt;下面我们先建一个反向连接. 通过一台公网服务器访问内网PC的HTTP. &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ssh client: 172.27.18.59 &lt;br /&gt;
+  ssh server: 121.42.186.117 &lt;br /&gt;
+  app client: 172.27.18.39 &lt;br /&gt;
+  app server: 172.27.18.59 &lt;br /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;ssh -R 121.42.186.117:8080:172.27.18.59:80 root@121.42.186.117
+&lt;/pre&gt;
+&lt;p&gt;本条命令同样是在ssh client上执行的, 但数据的访问方向却是通过app client到ssh server再到ssh client, 与ssh连接方向相反&lt;/p&gt;
+&lt;p&gt;在app client上通过浏览器访问ssh server的8080端口, 就能访问到HTTP服务, 为什么这样就能访问而正向连接就不行呢???&lt;/p&gt;
+&lt;h3 id=&quot;43-socks代理&quot;&gt;4.3 SOCKS代理&lt;/h3&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;ssh -D [本地IP或省略]:[本地端口] [登陆服务器的用户名@服务器IP] -p [服务器ssh服务端口（默认22）]
+&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ssh client: 172.27.18.59 &lt;br /&gt;
+  ssh server: 121.42.186.117 &lt;br /&gt;
+  app client: 172.27.18.39 &lt;br /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;ssh -D 172.27.18.59:8080 root@121.42.186.117
+&lt;/pre&gt;
+&lt;p&gt;在app client上设置代理为172.27.18.59:8080, 设置方法为打开IE, 设置-&gt;Internet选项-&gt;连接-&gt;局域网设置-&gt;勾选为LAN使用代理服务器(留空地址和端口)-&gt;高级-&gt;在套接字栏填上IP和端口. 而不是HTTP代理.&lt;/p&gt;
+&lt;p&gt;Chrome使用的是IE的设置, IE设置好后可直接使用Chrome上网&lt;/p&gt;
+&lt;h2 id=&quot;5-常用参数&quot;&gt;5 常用参数&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;-C 压缩&lt;/li&gt;
+&lt;li&gt;-N 表示不执行远程的命令&lt;/li&gt;
+&lt;li&gt;-f 后台执行命令&lt;/li&gt;
+&lt;li&gt;-g 允许远程主机连接本地转发端口&lt;/li&gt;
+&lt;li&gt;-R 表明是将远端主机端口映射到本地端口&lt;/li&gt;
+&lt;li&gt;-L 则是将本地端口映射到远端主机端口&lt;/li&gt;
+&lt;li&gt;-D 本地动态端口转发&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         
