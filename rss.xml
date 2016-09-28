@@ -4,7 +4,7 @@
         <title>RSS feed title</title>
         <link>null</link>
         <description>RSS feed description</description>
-        <lastBuildDate>Wed, 28 Sep 2016 14:13:10 +0800</lastBuildDate>
+        <lastBuildDate>Wed, 28 Sep 2016 15:25:22 +0800</lastBuildDate>
         <language>zh-cn</language>
         
         <item>
@@ -359,8 +359,7 @@ Date: Tue, 27 Sep 2016 08:13:11 GMT
 &lt;/blockquote&gt;
 &lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;ssh -D 172.27.18.59:8080 root@121.42.186.117
 &lt;/pre&gt;
-&lt;p&gt;在app client上设置代理为172.27.18.59:8080, 设置方法为打开IE, 设置-&gt;Internet选项-&gt;连接-&gt;局域网设置-&gt;勾选为LAN使用代理服务器(留空地址和端口)-&gt;高级-&gt;在套接字栏填上IP和端口. 而不是HTTP代理.&lt;/p&gt;
-&lt;p&gt;Chrome使用的是IE的设置, IE设置好后可直接使用Chrome上网&lt;/p&gt;
+&lt;p&gt;在app client上设置代理为172.27.18.59:8080, 设置方法为打开IE, 设置-&gt;Internet选项-&gt;连接-&gt;局域网设置-&gt;勾选为LAN使用代理服务器(留空地址和端口)-&gt;高级-&gt;在套接字栏填上IP和端口. 而不是HTTP代理.Chrome使用的是IE的设置, IE设置好后可直接使用Chrome上网,  然后随意访问一个网站, 在ssh server里能看到很多连接到你的目标网站的tcp连接&lt;/p&gt;
 &lt;h2 id=&quot;5-常用参数&quot;&gt;5 常用参数&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;-C 压缩&lt;/li&gt;
@@ -371,6 +370,57 @@ Date: Tue, 27 Sep 2016 08:13:11 GMT
 &lt;li&gt;-L 则是将本地端口映射到远端主机端口&lt;/li&gt;
 &lt;li&gt;-D 本地动态端口转发&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+        </item>
+        
+        <item>
+            <title>在windows上用putty配置ssh tunnel</title>
+            <link>null/articles/ssh-tunnel-by-putty-on-windows.html?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=rss</link>
+            <guid>null/articles/ssh-tunnel-by-putty-on-windows.html</guid>
+            <author>null limatrix</author>
+            <pubDate>Wed, 13 Jul 2016 00:00:00 +0800</pubDate>
+            <description>&lt;h2 id=&quot;正向连接&quot;&gt;正向连接&lt;/h2&gt;
+&lt;p&gt;设备和IP地址&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ssh server: 121.42.186.117 &lt;br /&gt;
+  ssh client: 172.27.18.39 &lt;br /&gt;
+  app client: 172.27.18.39 &lt;br /&gt; 
+  app server: pop.163.com &lt;br /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;填写要连接的ssh server ip和端口, 然后在connection-&gt;ssh-&gt;tunnels里填写ssh信息. Source port填ssh client的ip:port, Destination填app server的ip:port&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/ssh-putty/putty-01.jpg&quot; alt=&quot;填写SSH服务器的IP和端口&quot;&gt;
+&nbsp;
+&lt;img src=&quot;../images/ssh-putty/putty-02.jpg&quot; alt=&quot;正向连接&quot;&gt;&lt;/p&gt;
+&lt;p&gt;点击open输入ssh server的user和pass连接到ssh server&lt;/p&gt;
+&lt;p&gt;用nc连接172.27.18.39 8080, 在ssh server上查看tcp连接, 可以看到ssh server访问了pop.163.com&lt;/p&gt;
+&lt;pre class=&quot;prettyprint linenums lang-bash&quot;&gt;C:\&gt;nc 172.27.18.39 8080
++OK Welcome to coremail Mail Pop3 Server (163coms[726cd87d72d896a1ac393507346040fas])
+USER xxxxx
++OK core mail
+PASS xxxxx
+-ERR 您没有权限使用pop3功能
+&lt;/pre&gt;
+&lt;h2 id=&quot;反向向连接&quot;&gt;反向向连接&lt;/h2&gt;
+&lt;p&gt;设备和IP地址&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ssh server: 121.42.186.117 &lt;br /&gt;
+  ssh client: 172.27.18.39 &lt;br /&gt;
+  app client: 172.27.18.39 &lt;br /&gt; 
+  app server: 172.27.18.39 &lt;br /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;反向连接时Source port要填ssh server的ip:port, Destination要填app server的ip:port(没错吧?), 并选Remote&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/ssh-putty/putty-03.jpg&quot; alt=&quot;反向连接&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在浏览器里输入121.42.186.117:8080成功访问到172.27.18.39:8001提供的HTTP服务&lt;/p&gt;
+&lt;h2 id=&quot;socks代理&quot;&gt;SOCKS代理&lt;/h2&gt;
+&lt;p&gt;设备和IP地址&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ssh server: 121.42.186.117 &lt;br /&gt;
+  ssh client: 172.27.18.39 &lt;br /&gt;
+  app client: 172.27.18.39 &lt;br /&gt; &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt; 只填写Source port为172.27.18.39:8080, 然后选择Dynamic&lt;/p&gt;
+&lt;p&gt; &lt;img src=&quot;../images/ssh-putty/putty-04.jpg&quot; alt=&quot;SOCKS代理&quot;&gt;&lt;/p&gt;
+&lt;p&gt; 给浏览器设置socks代理(不是http代理), 然后随意访问一个网站, 在ssh server里能看到很多连接到你的目标网站的tcp连接&lt;/p&gt;
 </description>
         </item>
         

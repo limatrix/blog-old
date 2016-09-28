@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="description" content="记录一些关于内核,驱动,WIFI和WEB的相关知识"/>
+        <meta name="keywords" content="linux,driver,wifi"/>
+        <meta name="author" content="limatrix"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <title>ThinkNote - 在windows上用putty配置ssh tunnel
+</title>
+        <link rel="stylesheet" href="/assets/vendor/normalize.css"/>
+        <link rel="stylesheet" href="/assets/vendor/prettify-night.css"/>
+        <link rel="stylesheet" href="/assets/themes/default/main.css"/>
+        <link rel="shortcut icon" href="/fav.ico"/>
+        <script type="text/javascript" src="/assets/vendor/prettify.js"></script>
+        
+    </head>
+    <body onload="prettyPrint()">
+    <div id="header">
+        <div id="header-inner">
+            <div id="title"><a href="/">ThinkNote</a></div>
+            <div id="subtitle">Keep thinking</div>
+        </div>
+    </div>
+
+<div id="main">
+    <div id="main-inner">
+        <div id="topnav">
+            <ul>
+                <li><a href="/">首页</a></li>
+                <li class="sep"> | </li>
+                <li><a href="/tag.html">标签</a></li>
+                
+<li class="sep"> | </li>
+<li><a href="/pages/about-me.html" target="_self">关于我</a></li>
+
+
+            </ul>
+            <div style="clear:both;"></div>
+        </div>
+        <div id="article-title">
+            <a href="/articles/ssh-tunnel-by-putty-on-windows.html">在windows上用putty配置ssh tunnel</a>
+        </div>
+        <div id="article-meta">
+            作者 limatrix | 发布于 2016-07-13
+        </div>
+        <div id="article-tags">
+        
+        <a class="tag" href="/tag.html#SSH TUNNEL">SSH TUNNEL</a>
+        
+        <a class="tag" href="/tag.html#windows">windows</a>
+        
+        <a class="tag" href="/tag.html#putty">putty</a>
+        
+        </div>
+        <div id="article-content">
+            <h2 id="正向连接">正向连接</h2>
+<p>设备和IP地址</p>
+<blockquote>
+<p>ssh server: 121.42.186.117 <br />
+  ssh client: 172.27.18.39 <br />
+  app client: 172.27.18.39 <br /> 
+  app server: pop.163.com <br /></p>
+</blockquote>
+<p>填写要连接的ssh server ip和端口, 然后在connection-&gt;ssh-&gt;tunnels里填写ssh信息. Source port填ssh client的ip:port, Destination填app server的ip:port</p>
+<p><img src="../images/ssh-putty/putty-01.jpg" alt="填写SSH服务器的IP和端口">
+&nbsp;
+<img src="../images/ssh-putty/putty-02.jpg" alt="正向连接"></p>
+<p>点击open输入ssh server的user和pass连接到ssh server</p>
+<p>用nc连接172.27.18.39 8080, 在ssh server上查看tcp连接, 可以看到ssh server访问了pop.163.com</p>
+<pre class="prettyprint linenums lang-bash">C:\&gt;nc 172.27.18.39 8080
++OK Welcome to coremail Mail Pop3 Server (163coms[726cd87d72d896a1ac393507346040fas])
+USER xxxxx
++OK core mail
+PASS xxxxx
+-ERR 您没有权限使用pop3功能
+</pre>
+<h2 id="反向向连接">反向向连接</h2>
+<p>设备和IP地址</p>
+<blockquote>
+<p>ssh server: 121.42.186.117 <br />
+  ssh client: 172.27.18.39 <br />
+  app client: 172.27.18.39 <br /> 
+  app server: 172.27.18.39 <br /></p>
+</blockquote>
+<p>反向连接时Source port要填ssh server的ip:port, Destination要填app server的ip:port(没错吧?), 并选Remote</p>
+<p><img src="../images/ssh-putty/putty-03.jpg" alt="反向连接"></p>
+<p>在浏览器里输入121.42.186.117:8080成功访问到172.27.18.39:8001提供的HTTP服务</p>
+<h2 id="socks代理">SOCKS代理</h2>
+<p>设备和IP地址</p>
+<blockquote>
+<p>ssh server: 121.42.186.117 <br />
+  ssh client: 172.27.18.39 <br />
+  app client: 172.27.18.39 <br /> </p>
+</blockquote>
+<p> 只填写Source port为172.27.18.39:8080, 然后选择Dynamic</p>
+<p> <img src="../images/ssh-putty/putty-04.jpg" alt="SOCKS代理"></p>
+<p> 给浏览器设置socks代理(不是http代理), 然后随意访问一个网站, 在ssh server里能看到很多连接到你的目标网站的tcp连接</p>
+
+        </div>
+        
+    </div>
+</div>
+        <div id="footer">
+            <div id="footer-inner">
+                <p id="copyright">Copyright (c) 2016-2017 limatrix</p>
+            </div>
+        </div>
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+        }
+    });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+    </body>
+</html>
+
